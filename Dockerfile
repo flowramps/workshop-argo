@@ -7,5 +7,5 @@ RUN CGO_ENABLED=0 go build -o server main.go
 FROM scratch
 WORKDIR /app
 COPY --from=build /app/server .
-COPY flowramps.jpg .  # Copia a imagem para o diretório do container
+COPY flowramps.jpg /app
 CMD ["./server"]
