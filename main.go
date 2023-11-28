@@ -23,19 +23,31 @@ func main() {
 							background-color: #00FF00; /* Cor de fundo verde claro */
 							flex-direction: column;
 						}
-						h1 {
+						h1, p {
 							text-align: center;
 							color: #333; /* Defina a cor do texto que desejar */
 						}
-						p {
-							text-align: center;
-							color: #333; /* Defina a cor do texto que desejar */
+						.image-container {
+							display: flex;
+							justify-content: center;
+							align-items: center;
+							border-radius: 15px; /* Adicione bordas arredondadas */
+							overflow: hidden; /* Garante que as bordas arredondadas se apliquem corretamente */
+							margin: 20px; /* Adicione margem ao redor da imagem */
+						}
+						.image-container img {
+							border-radius: 15px; /* Mantenha as bordas arredondadas na imagem */
+							max-width: 100%; /* Garante que a imagem não ultrapasse o contêiner */
+							height: auto; /* Mantenha a proporção da imagem */
 						}
 					</style>
 				</head>
 				<body>
 					<h1>Workshop DevOps !!!!</h1>
-					<div style="display: flex; flex-direction: column; align-items: center;">
+					<div class="image-container">
+						<img src="flowramps.jpg" alt="Imagem" />
+					</div>
+					<div>
 						<p>Nome do Pode: ` + hostname + `</p>
 					</div>
 				</body>
@@ -46,4 +58,3 @@ func main() {
 	http.Handle("/metrics", promhttp.Handler())
 	http.ListenAndServe(":8080", nil)
 }
-
