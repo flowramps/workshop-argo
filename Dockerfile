@@ -1,4 +1,4 @@
-FROM golang:1.21 as build
+FROM golang:1.16 as build
 
 WORKDIR /app
 COPY . .
@@ -9,3 +9,4 @@ WORKDIR /app
 COPY --from=build /app/server .
 COPY flowramps.jpg /app
 CMD ["./server"]
+

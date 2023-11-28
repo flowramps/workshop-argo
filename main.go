@@ -45,7 +45,7 @@ func main() {
 				<body>
 					<h1>Workshop DevOps !!!!</h1>
 					<div class="image-container">
-						<img src="/app/flowramps.jpg" alt="Imagem" />
+						<img src="/flowramps.jpg" alt="Imagem" />
 					</div>
 					<div>
 						<p>Nome do Pode: ` + hostname + `</p>
@@ -58,3 +58,4 @@ func main() {
 	http.Handle("/metrics", promhttp.Handler())
 	http.ListenAndServe(":8080", nil)
 }
+
