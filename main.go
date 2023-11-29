@@ -3,7 +3,7 @@ package main
 import (
 	"net/http"
 	"os"
-	// add prometheus
+
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
@@ -28,17 +28,21 @@ func main() {
 							color: #333; /* Defina a cor do texto que desejar */
 						}
 						.image-container {
-							display: flex;
-							justify-content: center;
-							align-items: center;
-							border-radius: 15px; /* Adicione bordas arredondadas */
-							overflow: hidden; /* Garante que as bordas arredondadas se apliquem corretamente */
-							margin: 20px; /* Adicione margem ao redor da imagem */
+							display: block;
+							-webkit-user-select: none;
+							margin: auto;
+							cursor: zoom-in;
+							background-color: hsl(0, 0%, 90%);
+							transition: background-color 300ms;
 						}
 						.image-container img {
-							border-radius: 15px; /* Mantenha as bordas arredondadas na imagem */
-							max-width: 100%; /* Garante que a imagem não ultrapasse o contêiner */
-							height: auto; /* Mantenha a proporção da imagem */
+							display: block;
+							margin: auto;
+							max-width: 654px; /* Largura desejada */
+							max-height: 654px; /* Altura desejada */
+							width: auto;
+							height: auto;
+							border-radius: 15px; /* Bordas arredondadas */
 						}
 					</style>
 				</head>
@@ -54,7 +58,7 @@ func main() {
 			</html>
 		`))
 	})
-	// add promhttp.Handler()
+
 	http.Handle("/metrics", promhttp.Handler())
 	http.ListenAndServe(":8080", nil)
 }
