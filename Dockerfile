@@ -13,9 +13,6 @@ WORKDIR /app
 # Copiar binário do estágio de compilação
 COPY --from=build /app/server .
 
-# Copiar a imagem
-COPY flowramps.jpg .
-
 # Usar um usuário não privilegiado
 USER nobody:nogroup
 
