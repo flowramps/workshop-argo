@@ -45,7 +45,7 @@ func main() {
 				<body>
 					<h1>Workshop DevOps !!!!</h1>
 					<div class="image-container">
-						<img src="/flowramps.jpg" alt="Imagem" />
+						<img src="https://raw.githubusercontent.com/flowramps/workshop-argo/main/img/flowramps.jpg" alt="Imagem">
 					</div>
 					<div>
 						<p>Nome do Pode: ` + hostname + `</p>
