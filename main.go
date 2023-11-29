@@ -24,7 +24,7 @@ func main() {
                                         min-height: 100vh;
                                         margin: 0;
                                         font-family: Arial, sans-serif;
-                                        background-color: #BE7839; /* Cor de fundo da tela */
+                                        background-color: #D8923B; /* #BE7839 Cor de fundo da tela */
                                     }
 
                                     h1, p {
@@ -43,7 +43,7 @@ func main() {
                                         display: block;
                                         margin: auto;
                                         max-width: 100%;
-                                        max-height: 80vh;
+                                        max-height: 75vh;
                                         border-radius: 10px;
                                     }
 
@@ -57,13 +57,17 @@ func main() {
                                         width: 100%;
                                     }
 
+                                    .navbar a {
+                                        margin-right: 5px;
+                                    }
+
                                     /* Conteúdo principal */
                                     .content {
-                                        background-color: white; /* Cor de fundo do conteúdo principal */
-                                        padding: 20px;
+                                        background-color: #BE7839; /* #D8923B Cor de fundo do conteúdo principal */
+                                        padding: 15px;
                                         margin: 10px;
                                         border-radius: 10px;
-                                        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                                        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
                                     }
 
                                     /* Footer styles */
@@ -71,24 +75,29 @@ func main() {
                                         display: flex;
                                         justify-content: space-around;
                                         align-items: center;
-                                        padding: 10px;
+                                        padding: 5px;
                                         background-color: white; /* Cor de fundo do rodapé */
                                         color: #333;
                                         width: 100%;
                                     }
 
                                     .social-links img {
-                                        height: 32px;
-                                        width: 32px;
-                                        border-radius: 50%; /* Adiciona borda circular às imagens */
+                                        height: 30px;
+                                        width: 30px;
+                                        border-radius: 25%; /* Adiciona borda circular às imagens */
                                         margin-right: 5px;
                                     }
 
                                     /* Media query for smaller screens */
-                                    @media (max-width: 600px) {
+                                    @media (max-width: 400px) {
                                         .navbar {
                                             flex-direction: column;
                                             align-items: center;
+                                        }
+
+                                        .navbar a {
+                                            margin-right: 10px;
+                                            margin-bottom: 10px;
                                         }
 
                                         .social-links {
@@ -99,6 +108,7 @@ func main() {
                             </head>
                             <body>
                                 <div class="navbar">
+                                    <a href="/metrics" style="text-decoration: none; color: #333;">Metrics</a>
                                     <!-- Adicione aqui o conteúdo da barra de navegação -->
                                 </div>
                                 <div class="content">
