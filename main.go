@@ -3,9 +3,36 @@ package main
 import (
 	"net/http"
 	"os"
+	"sync"
 
+	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
+
+var (
+	instagramClicks = prometheus.NewCounter(prometheus.CounterOpts{
+		Name: "social_media_clicks_instagram",
+		Help: "Number of clicks on Instagram link",
+	})
+
+	linkedinClicks = prometheus.NewCounter(prometheus.CounterOpts{
+		Name: "social_media_clicks_linkedin",
+		Help: "Number of clicks on LinkedIn link",
+	})
+
+	githubClicks = prometheus.NewCounter(prometheus.CounterOpts{
+		Name: "social_media_clicks_github",
+		Help: "Number of clicks on GitHub link",
+	})
+
+	metricsMtx sync.Mutex
+)
+
+func init() {
+	prometheus.MustRegister(instagramClicks)
+	prometheus.MustRegister(linkedinClicks)
+	prometheus.MustRegister(githubClicks)
+}
 
 func main() {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
@@ -104,6 +131,7 @@ func main() {
                             width: 30px;
                             border-radius: 25%; /* Adiciona borda circular às imagens */
                             margin-right: 5px;
+                            cursor: pointer;
                         }
 
                         /* Media query for smaller screens */
@@ -140,14 +168,34 @@ func main() {
                     </div>
                     <div class="footer">
                         <div class="social-links">
-                            <a href="https://www.instagram.com/flow.ramps/" title="Instagram" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/flowramps/workshop-argo/main/img/instagram.png"></a>
-                            <a href="https://www.linkedin.com/in/rafaelrampasso/" title="LinkedIn" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/flowramps/workshop-argo/main/img/linkedin.png"></a>
-			    <a href="https://github.com/flowramps" title="Github" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/flowramps/workshop-argo/main/img/github.png"></a>
+                            <a href="https://www.instagram.com/flow.ramps/" title="Instagram" target="_blank" rel="noopener" onclick="recordSocialMediaClick('instagram')"><img src="https://raw.githubusercontent.com/flowramps/workshop-argo/main/img/instagram.png"></a>
+                            <a href="https://www.linkedin.com/in/rafaelrampasso/" title="LinkedIn" target="_blank" rel="noopener" onclick="recordSocialMediaClick('linkedin')"><img src="https://raw.githubusercontent.com/flowramps/workshop-argo/main/img/linkedin.png"></a>
+                            <a href="https://github.com/flowramps" title="Github" target="_blank" rel="noopener" onclick="recordSocialMediaClick('github')"><img src="https://raw.githubusercontent.com/flowramps/workshop-argo/main/img/github.png"></a>
                         </div>
                     </div>
+                    <script>
+                        function recordSocialMediaClick(socialMedia) {
+                            fetch('/click?network=' + socialMedia);
+                        }
+                    </script>
                 </body>
             </html>
         `))
+	})
+
+	http.HandleFunc("/click", func(w http.ResponseWriter, r *http.Request) {
+		network := r.URL.Query().Get("network")
+		metricsMtx.Lock()
+		defer metricsMtx.Unlock()
+
+		switch network {
+		case "instagram":
+			instagramClicks.Inc()
+		case "linkedin":
+			linkedinClicks.Inc()
+		case "github":
+			githubClicks.Inc()
+		}
 	})
 
 	http.Handle("/metrics", promhttp.Handler())
