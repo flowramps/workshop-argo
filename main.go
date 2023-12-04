@@ -83,9 +83,10 @@ func main() {
                             transition: background-color 300ms;
                         }
 
-                        .image-container img {
-                            display: block;
-                            margin: auto;
+                        .responsive-image {
+                            max-width: 100%;
+                            height: auto;
+                            width: 100%;
                             border-radius: 10px;
                         }
 
@@ -100,7 +101,7 @@ func main() {
                         }
 
                         .navbar a {
-                            margin-right: 5px;
+                            margin-right: 10px;
                         }
 
                         /* Adicione o seguinte estilo para o botão Metrics */
@@ -119,8 +120,8 @@ func main() {
                             padding: 7px;
                             margin: 7px;
                             border-radius: 15px;
-                            box-shadow: 0 0px 0px rgba(0, 0, 0, 0.1);
-                            width: 80%; /* Ajuste o tamanho conforme necessário */
+                            box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+                            width: 30%; /* Ajuste o tamanho conforme necessário */
                         }
 
                         /* Alteração para a cor branca do texto */
@@ -147,19 +148,15 @@ func main() {
                         }
 
                         /* Media query for smaller screens */
-                        @media (max-width: 400px) {
-                            .navbar {
-                                flex-direction: column;
-                                align-items: center;
+                        @media (max-width: 700px) {
+                            .content {
+                                width: 90%;
                             }
+                        }
 
-                            .navbar a {
-                                margin-right: 10px;
-                                margin-bottom: 10px;
-                            }
-
-                            .social-links {
-                                margin-top: 10px;
+                        @media (max-width: 500px) {
+                            .content {
+                                width: 85%;
                             }
                         }
                     </style>
@@ -172,7 +169,7 @@ func main() {
                     <div class="content">
                         <h1>Workshop DevOps !!!!</h1>
                         <div class="image-container">
-                            <img src="https://raw.githubusercontent.com/flowramps/workshop-argo/main/img/flowramps.jpg" alt="Imagem" style="width: 60%; height: auto;">
+                            <img class="responsive-image" src="https://raw.githubusercontent.com/flowramps/workshop-argo/main/img/flowramps.jpg" alt="Imagem">
                         </div>
                         <div class="white-text">
                             <p>Nome do Pod: ` + hostname + `</p>
@@ -182,6 +179,7 @@ func main() {
                         <div class="social-links">
                             <a href="https://www.instagram.com/flow.ramps/" title="Instagram" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/flowramps/workshop-argo/main/img/instagram.png"></a>
                             <a href="https://www.linkedin.com/in/rafaelrampasso/" title="LinkedIn" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/flowramps/workshop-argo/main/img/linkedin.png"></a>
+			    <a href="https://github.com/flowramps/" title="Github" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/flowramps/workshop-argo/main/img/github.png"></a>
                         </div>
                     </div>
                 </body>
