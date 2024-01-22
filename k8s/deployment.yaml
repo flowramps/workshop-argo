@@ -17,6 +17,6 @@ spec:
     spec:
       containers:
       - name: goapp
-        image: goapp
+        image: rampss/argocd:latest
         ports:
         - containerPort: 8080

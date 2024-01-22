@@ -3,8 +3,8 @@ import { check } from 'k6';
 import { sleep } from 'k6';
 
 export let options = {
-  vus: 10, // Número de usuários virtuais simulados
-  duration: '30s', // Duração do teste
+  vus: 50, // Número de usuários virtuais simulados
+  duration: '60s', // Duração do teste
 };
 
 export default function () {

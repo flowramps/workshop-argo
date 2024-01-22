@@ -5,7 +5,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: goapp.172.19.119.209.nip.io
+    - host: goapp.127.0.0.1.nip.io
       http:
         paths:
         - path: /
