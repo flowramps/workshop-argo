@@ -55,110 +55,19 @@ func main() {
                 <head>
                     <meta charset="UTF-8">
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                    <script>
+                    $(document).ready(function() {
+                        $(".social-links a").click(function() {
+                            var socialMedia = $(this).attr("title").toLowerCase();
+                            $.get("/increment-" + socialMedia + "-counter", function(data) {
+                                console.log("Contador do " + socialMedia + " incrementado");
+                            });
+                        });
+                    });
+                    </script>
                     <style>
-                        body {
-                            display: flex;
-                            flex-direction: column;
-                            align-items: center;
-                            min-height: 100vh;
-                            margin: 0;
-                            font-family: Arial, sans-serif;
-                            background-color: #D8923B; /* #BE7839 Cor de fundo da tela */
-                        }
-
-                        h1 {
-                            text-align: center;
-                            color: white; /* Alterado para a cor branca */
-                        }
-
-                        p {
-                            text-align: center;
-                            color: #333;
-                        }
-
-                        .image-container {
-                            display: block;
-                            margin: auto;
-                            cursor: zoom-in;
-                            transition: background-color 300ms;
-                        }
-
-                        .responsive-image {
-                            max-width: 100%;
-                            height: auto;
-                            width: 100%;
-                            border-radius: 10px;
-                        }
-
-                        /* Navbar styles */
-                        .navbar {
-                            display: flex;
-                            justify-content: space-between;
-                            align-items: center;
-                            padding: 10px;
-                            background-color: white; /* Cor de fundo da barra de navegação */
-                            width: 100%;
-                        }
-
-                        .navbar a {
-                            margin-right: 10px;
-                        }
-
-                        /* Adicione o seguinte estilo para o botão Metrics */
-                        .navbar a[href="/metrics"] {
-                            text-decoration: none;
-                            color: #333;
-                            padding: 8px 16px;
-                            border: 2px solid #000; /* Adiciona uma borda preta de 2px */
-                            border-radius: 10px; /* Adiciona bordas arredondadas */
-                            transition: background-color 300ms;
-                        }
-
-                        /* Conteúdo principal */
-                        .content {
-                            background-color: #BE7839; /* #D8923B Cor de fundo do conteúdo principal */
-                            padding: 7px;
-                            margin: 7px;
-                            border-radius: 15px;
-                            box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
-                            width: 30%; /* Ajuste o tamanho conforme necessário */
-                        }
-
-                        /* Alteração para a cor branca do texto */
-                        .white-text p {
-                            color: white;
-                        }
-
-                        /* Footer styles */
-                        .footer {
-                            display: flex;
-                            justify-content: space-around;
-                            align-items: center;
-                            padding: 5px;
-                            background-color: white; /* Cor de fundo do rodapé */
-                            color: #333;
-                            width: 100%;
-                        }
-
-                        .social-links img {
-                            height: 30px;
-                            width: 30px;
-                            border-radius: 25%; /* Adiciona borda circular às imagens */
-                            margin-right: 5px;
-                        }
-
-                        /* Media query for smaller screens */
-                        @media (max-width: 700px) {
-                            .content {
-                                width: 90%;
-                            }
-                        }
-
-                        @media (max-width: 500px) {
-                            .content {
-                                width: 85%;
-                            }
-                        }
+                    /* Adicione os estilos CSS conforme necessário */
                     </style>
                 </head>
                 <body>
@@ -179,7 +88,7 @@ func main() {
                         <div class="social-links">
                             <a href="https://www.instagram.com/flow.ramps/" title="Instagram" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/flowramps/workshop-argo/main/img/instagram.png"></a>
                             <a href="https://www.linkedin.com/in/rafaelrampasso/" title="LinkedIn" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/flowramps/workshop-argo/main/img/linkedin.png"></a>
-			    <a href="https://github.com/flowramps/" title="Github" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/flowramps/workshop-argo/main/img/github.png"></a>
+                            <a href="https://github.com/flowramps/" title="Github" target="_blank" rel="noopener"><img src="https://raw.githubusercontent.com/flowramps/workshop-argo/main/img/github.png"></a>
                         </div>
                     </div>
                 </body>
@@ -187,7 +96,27 @@ func main() {
         `))
 	})
 
+	http.HandleFunc("/increment-instagram-counter", func(w http.ResponseWriter, r *http.Request) {
+		metricsMtx.Lock()
+		defer metricsMtx.Unlock()
+		instagramClicks.Inc()
+		w.Write([]byte("Contador do Instagram incrementado"))
+	})
+
+	http.HandleFunc("/increment-linkedin-counter", func(w http.ResponseWriter, r *http.Request) {
+		metricsMtx.Lock()
+		defer metricsMtx.Unlock()
+		linkedinClicks.Inc()
+		w.Write([]byte("Contador do LinkedIn incrementado"))
+	})
+
+	http.HandleFunc("/increment-github-counter", func(w http.ResponseWriter, r *http.Request) {
+		metricsMtx.Lock()
+		defer metricsMtx.Unlock()
+		githubClicks.Inc()
+		w.Write([]byte("Contador do GitHub incrementado"))
+	})
+
 	http.Handle("/metrics", promhttp.Handler())
 	http.ListenAndServe(":8080", nil)
 }
-
