@@ -8,7 +8,7 @@ export let options = {
 
 export default function () {
   // Acesse apenas o endpoint principal
-  let response = http.get('http://goapp.172.26.58.248.nip.io/');
+  let response = http.get('http://goapp.127.0.0.1.nip.io/metrics');
 
   // Verifique se a solicitação foi bem-sucedida
   check(response, {
