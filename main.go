@@ -49,10 +49,7 @@ func main() {
 
 		pageViews.Inc()
 
-		switch r.URL.Path {
-		case "/":
-			// Se o caminho for "/", retorna a página principal
-			w.Write([]byte(`
+		w.Write([]byte(`
             <!DOCTYPE html>
             <html lang="en">
                 <head>
@@ -172,7 +169,7 @@ func main() {
                         <!-- Adicione aqui o conteúdo da barra de navegação -->
                     </div>
                     <div class="content">
-                        <h1>Workshop DevOps !!!!</h1>
+                        <h1>Workshop DevOps - Ri Happy !!!!</h1>
                         <div class="image-container">
                             <img class="responsive-image" src="https://raw.githubusercontent.com/flowramps/workshop-argo/main/img/flowramps.jpg" alt="Imagem">
                         </div>
@@ -201,10 +198,30 @@ func main() {
             </html>
         `))
 		// Adicione outros casos conforme necessário
-		default:
-			// Para qualquer outro caminho, retorna um erro 404 (não encontrado)
-			http.NotFound(w, r)
-		}
+        default:
+            // Para qualquer outro caminho, retorna um erro 404 (não encontrado)
+            http.NotFound(w, r)
+	})
+
+	http.HandleFunc("/increment-instagram-counter", func(w http.ResponseWriter, r *http.Request) {
+		metricsMtx.Lock()
+		defer metricsMtx.Unlock()
+		instagramClicks.Inc()
+		w.Write([]byte("Contador do Instagram incrementado"))
+	})
+
+	http.HandleFunc("/increment-linkedin-counter", func(w http.ResponseWriter, r *http.Request) {
+		metricsMtx.Lock()
+		defer metricsMtx.Unlock()
+		linkedinClicks.Inc()
+		w.Write([]byte("Contador do LinkedIn incrementado"))
+	})
+
+	http.HandleFunc("/increment-github-counter", func(w http.ResponseWriter, r *http.Request) {
+		metricsMtx.Lock()
+		defer metricsMtx.Unlock()
+		githubClicks.Inc()
+		w.Write([]byte("Contador do GitHub incrementado"))
 	})
 
 	http.Handle("/metrics", promhttp.Handler())
