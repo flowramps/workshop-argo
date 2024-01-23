@@ -197,10 +197,7 @@ func main() {
                 </body>
             </html>
         `))
-		// Adicione outros casos conforme necessário
-        default:
-            // Para qualquer outro caminho, retorna um erro 404 (não encontrado)
-            http.NotFound(w, r)
+
 	})
 
 	http.HandleFunc("/increment-instagram-counter", func(w http.ResponseWriter, r *http.Request) {
