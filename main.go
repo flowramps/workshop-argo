@@ -169,7 +169,7 @@ func main() {
                         <!-- Adicione aqui o conteúdo da barra de navegação -->
                     </div>
                     <div class="content">
-                        <h1>Workshop DevOps - Ri Happy !!!!</h1>
+                        <h1>Workshop DevOps - Ri Happy!!</h1>
                         <div class="image-container">
                             <img class="responsive-image" src="https://raw.githubusercontent.com/flowramps/workshop-argo/main/img/flowramps.jpg" alt="Imagem">
                         </div>
