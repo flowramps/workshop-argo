@@ -10,4 +10,4 @@ namespace: default
 images:
 - name: goapp
   newName: rampss/argocd
-  newTag: 6e313fa51e111722ead38039b0db044dd4fb115f
+  newTag: 07e0ed49f303425cd0f1805b03dd28fc3395924d
